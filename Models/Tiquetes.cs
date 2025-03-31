@@ -1,46 +1,49 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace WebAPITickets.Models
 {
     public class Tiquetes
     {
         [Key]
-        public int TiIdentificador { get; set; }
-
-        [Required, StringLength(150)]
-        public string TiAsunto { get; set; }
-
-        [Required, StringLength(150)]
-        public string TiCategoria { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ti_identificador { get; set; }
 
         [Required]
-        public int TiUsIdAsigna { get; set; }
-
-        [ForeignKey("TiUsIdAsigna")]
-        public Usuarios Usuario { get; set; }
-
-        [Required, StringLength(150)]
-        public string TiUrgencia { get; set; }
-
-        [Required, StringLength(150)]
-        public string TiImportancia { get; set; }
-
-        [Required, StringLength(1)]
-        public string TiEstado { get; set; }
-
-        [Required, StringLength(255)]
-        public string TiSolucion { get; set; }
+        [StringLength(150)]
+        public string ti_asunto { get; set; }
 
         [Required]
-        public DateTime TiFechaAdicion { get; set; } = DateTime.Now;
+        [StringLength(150)]
+        public string ti_categoria { get; set; }
 
-        [Required, StringLength(10)]
-        public string TiAdicionadoPor { get; set; }
+        [Required]
+        public int ti_us_id_asigna { get; set; }
 
-        public DateTime? TiFechaModificacion { get; set; }
+        [Required]
+        [StringLength(150)]
+        public string ti_urgencia { get; set; }
 
+        [Required]
+        [StringLength(150)]
+        public string ti_importancia { get; set; }
+
+        [Required]
+        [StringLength(1)]
+        public string ti_estado { get; set; }
+
+        [JsonIgnore]
+        public DateTime ti_fecha_adicion { get; set; }
+
+        [Required]
         [StringLength(10)]
-        public string TiModificadoPor { get; set; }
+        public string ti_adicionado_por { get; set; }
+
+        [JsonIgnore]
+        public DateTime? ti_fecha_modificacion { get; set; }
+
+        [JsonIgnore]
+        public string? ti_modificado_por { get; set; }
     }
 }
