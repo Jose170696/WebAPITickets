@@ -86,6 +86,21 @@ namespace WebAPITickets.Controllers
             }
         }
 
+        // Autenticar usuario
+        [HttpPost("login")]
+        public async Task<IActionResult> Authenticate([FromBody] LoginModel loginRequest)
+        {
+            var usuario = await _contexto.Usuarios
+                .FirstOrDefaultAsync(u => u.us_correo == loginRequest.us_correo && u.us_clave == loginRequest.us_clave);
+
+            if (usuario == null)
+            {
+                return Unauthorized(new { mensaje = "Credenciales inválidas" });
+            }
+
+            return Ok(new { mensaje = "Autenticación exitosa", usuario = new { usuario.us_identificador, usuario.us_nombre_completo, usuario.us_correo } });
+        }
+
         private bool UsuarioExists(int id)
         {
             return _contexto.Usuarios.Any(e => e.us_identificador == id);
