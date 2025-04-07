@@ -15,23 +15,24 @@ namespace WebAPITickets.Models
         public string ti_asunto { get; set; }
 
         [Required]
-        [StringLength(150)]
-        public string ti_categoria { get; set; }
+        public int ti_ca_id { get; set; }
 
         [Required]
         public int ti_us_id_asigna { get; set; }
 
         [Required]
-        [StringLength(150)]
-        public string ti_urgencia { get; set; }
+        public int ti_ur_id { get; set; }
 
         [Required]
-        [StringLength(150)]
-        public string ti_importancia { get; set; }
+        public int ti_im_id { get; set; }
 
         [Required]
         [StringLength(1)]
         public string ti_estado { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string ti_solucion { get; set; }
 
         [JsonIgnore]
         public DateTime ti_fecha_adicion { get; set; }

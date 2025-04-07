@@ -21,18 +21,38 @@ us_fecha_modificacion datetime,
 us_modificado_por nvarchar (10)
 );
 
-CREATE TABLE Tiquetes (
-ti_identificador int primary key identity,
+
+create table Categorias (
+ca_identificador int primary key identity,
+ca_nombre nvarchar(100) not null
+);
+
+
+create table Importancias (
+im_identificador int primary key identity,
+im_nivel nvarchar(50) not null
+);
+
+
+create table Urgencias (
+ur_identificador int primary key identity,
+ur_nivel nvarchar(50) not null
+);
+
+
+create table Tiquetes (
+ti_identificador int primary key identity (1,1),
 ti_asunto nvarchar(150) not null,
-ti_categoria nvarchar (150) not null,
-ti_us_id_asigna int foreign key (ti_us_id_asigna) references Usuarios(us_identificador),
-ti_urgencia nvarchar(150) not null,
-ti_importancia nvarchar(150) not null,
-ti_estado nvarchar(1) not null,
+ti_ca_id int foreign key references Categorias(ca_identificador),
+ti_us_id_asigna int foreign key references Usuarios(us_identificador),
+ti_ur_id int foreign key references Urgencias(ur_identificador),
+ti_im_id int foreign key references Importancias(im_identificador),
+ti_estado nvarchar(150) not null,
+ti_solucion nvarchar(255),
 ti_fecha_adicion datetime default getdate() not null,
 ti_adicionado_por nvarchar(10) not null,
 ti_fecha_modificacion datetime,
-ti_modificado_por nvarchar (10)
+ti_modificado_por nvarchar(10)
 );
 
 
