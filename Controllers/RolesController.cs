@@ -16,6 +16,7 @@ namespace WebAPITickets.Controllers
             _contexto = contexto;
         }
 
+        // Obtener todos los roles
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Roles>>> GetRol()
         {
@@ -37,7 +38,7 @@ namespace WebAPITickets.Controllers
         }
 
         // Agregar un nuevo rol
-        [HttpPost]
+        [HttpPost("registrar")]
         public async Task<ActionResult<Roles>> AddRol(Roles nuevoRol)
         {
             try

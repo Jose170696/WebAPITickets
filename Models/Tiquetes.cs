@@ -14,16 +14,12 @@ namespace WebAPITickets.Models
         [StringLength(150)]
         public string ti_asunto { get; set; }
 
-        [Required]
         public int ti_ca_id { get; set; }
 
-        [Required]
         public int ti_us_id_asigna { get; set; }
 
-        [Required]
         public int ti_ur_id { get; set; }
 
-        [Required]
         public int ti_im_id { get; set; }
 
         [Required]
@@ -35,7 +31,7 @@ namespace WebAPITickets.Models
         public string ti_solucion { get; set; }
 
         [JsonIgnore]
-        public DateTime ti_fecha_adicion { get; set; }
+        public DateTime ti_fecha_adicion { get; set; } = DateTime.Now;
 
         [Required]
         [StringLength(10)]

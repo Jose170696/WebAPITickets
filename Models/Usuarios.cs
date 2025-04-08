@@ -22,7 +22,6 @@ namespace WebAPITickets.Models
         [StringLength(255)]
         public string us_clave { get; set; }
 
-        [Required]
         public int us_ro_identificador { get; set; }
 
         [Required]
@@ -30,7 +29,7 @@ namespace WebAPITickets.Models
         public string us_estado { get; set; }
 
         [JsonIgnore]
-        public DateTime us_fecha_adicion { get; set; }
+        public DateTime us_fecha_adicion { get; set; } = DateTime.Now;
 
         [Required]
         [StringLength(10)]

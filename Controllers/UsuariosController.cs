@@ -38,12 +38,14 @@ namespace WebAPITickets.Controllers
         }
 
         // Agregar un nuevo usuario
-        [HttpPost]
+        [HttpPost("registrar")]
         public async Task<ActionResult<Usuarios>> AddUsuario(Usuarios nuevoUsuario)
         {
             try
             {
+                // Asignar la fecha de adición automáticamente
                 nuevoUsuario.us_fecha_adicion = DateTime.Now;
+
                 _contexto.Usuarios.Add(nuevoUsuario);
                 await _contexto.SaveChangesAsync();
                 return CreatedAtAction(nameof(GetUsuarioById), new { id = nuevoUsuario.us_identificador }, nuevoUsuario);
@@ -65,7 +67,6 @@ namespace WebAPITickets.Controllers
 
             usuarioActualizado.us_fecha_modificacion = DateTime.Now;
             usuarioActualizado.us_modificado_por = usuarioActualizado.us_adicionado_por;
-
             _contexto.Entry(usuarioActualizado).State = EntityState.Modified;
 
             try
