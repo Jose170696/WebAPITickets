@@ -86,6 +86,23 @@ namespace WebAPITickets.Controllers
             }
         }
 
+        //Filtrar tiquetes por usuario
+        [HttpGet("usuario/{correo}")]
+        public async Task<IActionResult> GetTiquetesPorUsuario(string correo)
+        {
+            // Buscar al usuario por su correo
+            var usuario = await _contexto.Usuarios.FirstOrDefaultAsync(u => u.us_correo == correo);
+            if (usuario == null)
+                return NotFound($"No se encontró un usuario con el correo: {correo}");
+
+            // Obtener los tiquetes relacionados a ese usuario (por asignación)
+            var tiquetes = await _contexto.Tiquetes
+                .Where(t => t.ti_us_id_asigna == usuario.us_identificador)
+                .ToListAsync();
+
+            return Ok(tiquetes);
+        }
+
         private bool TiqueteExists(int id)
         {
             return _contexto.Tiquetes.Any(e => e.ti_identificador == id);
