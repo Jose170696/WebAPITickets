@@ -102,6 +102,21 @@ namespace WebAPITickets.Controllers
             return Ok(new { mensaje = "Autenticación exitosa", usuario = new { usuario.us_identificador, usuario.us_nombre_completo, usuario.us_correo } });
         }
 
+        // Consultar usuario por correo
+        [HttpGet("correo/{correo}")]
+        public async Task<ActionResult<Usuarios>> GetUsuarioPorCorreo(string correo)
+        {
+            var usuario = await _contexto.Usuarios
+                .FirstOrDefaultAsync(u => u.us_correo == correo);
+
+            if (usuario == null)
+            {
+                return NotFound(new { mensaje = $"Usuario con correo {correo} no encontrado." });
+            }
+
+            return Ok(usuario);
+        }
+
         private bool UsuarioExists(int id)
         {
             return _contexto.Usuarios.Any(e => e.us_identificador == id);
